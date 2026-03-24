@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=1280, height=720, initial-scale=1.0" name="viewport" />
+  <title>Bloco 3 - Procedimentos e Segurança</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Open+Sans:wght@400;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background-color: #f0f8ff;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      display: flex;
+      position: relative;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    /* Left Content Area */
+    .content-side {
+      width: 65%;
+      padding: 50px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    /* Right Image Area */
+    .image-side {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40%;
+      height: 100%;
+      background-color: #0284c7;
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .image-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 1;
+      background-image: url('assets/alemao.JPEG');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(2, 132, 199, 0.3);
+      /* Blue tint */
+    }
+
+    /* Typography */
+    .header-section {
+      margin-bottom: 35px;
+      border-left: 8px solid #ef4444;
+      /* Red for safety emphasis */
+      padding-left: 30px;
+    }
+
+    .block-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #ef4444;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .main-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 40px;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .presenter-info {
+      font-size: 18px;
+      color: #64748b;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    /* List Styles */
+    .content-list {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .icon-box {
+      min-width: 50px;
+      height: 50px;
+      background-color: #fee2e2;
+      /* Light red bg */
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #dc2626;
+      /* Red icon */
+      font-size: 20px;
+      margin-right: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+    }
+
+    .list-text-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 3px;
+    }
+
+    .item-desc {
+      font-size: 15px;
+      color: #475569;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Decoration */
+    .watermark {
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      font-size: 300px;
+      color: rgba(239, 68, 68, 0.03);
+      /* Slight red tint */
+      z-index: 0;
+      transform: rotate(-15deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <!-- Watermark Background -->
+    <i class="fas fa-shield-alt watermark"></i>
+    <!-- Main Content -->
+    <div class="content-side">
+      <div class="header-section">
+        <span class="block-label">Bloco 3 • 20–25 min</span>
+        <h1 class="main-title">Procedimentos e Segurança</h1>
+        <p class="presenter-info"><i class="fas fa-user-shield mr-2"></i>Apresentação: Alemão (Especialista em
+          Segurança)</p>
+      </div>
+      <div class="content-list">
+        <!-- Item 1 -->
+        <div class="list-item">
+          <div class="icon-box">
+            <i class="fas fa-clipboard-check"></i>
+          </div>
+          <div class="list-text-content">
+            <h3 class="item-title">Checklist Pré-sessão</h3>
+            <p class="item-desc">Verificação rigorosa de equipamento (linhas, barra), condições do vento e previsão
+              meteorológica antes de entrar na água.</p>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="list-item">
+          <div class="icon-box">
+            <i class="fas fa-map-marked-alt"></i>
+          </div>
+          <div class="list-text-content">
+            <h3 class="item-title">Zonas de Prática e Conduta</h3>
+            <p class="item-desc">Definição clara de áreas de lançamento/pouso e comportamento seguro na faixa de areia
+              para evitar acidentes com pedestres.</p>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="list-item">
+          <div class="icon-box">
+            <i class="fas fa-people-arrows"></i>
+          </div>
+          <div class="list-text-content">
+            <h3 class="item-title">Prioridades e Distâncias</h3>
+            <p class="item-desc">Regras de preferência no pico e manutenção de distância segura (min. 50m) de banhistas
+              e outras embarcações.</p>
+          </div>
+        </div>
+        <!-- Item 4 -->
+        <div class="list-item">
+          <div class="icon-box">
+            <i class="fas fa-life-ring"></i>
+          </div>
+          <div class="list-text-content">
+            <h3 class="item-title">Protocolos de Emergência</h3>
+            <p class="item-desc">Procedimentos de auto-resgate, sinais manuais de socorro e atuação em caso de
+              incidentes com terceiros.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right Side Image -->
+    <div class="image-side">
+      <div class="image-bg"></div>
+      <div class="image-overlay"></div>
+      <!-- Optional overlay text -->
+      <div style="position: absolute; bottom: 40px; right: 40px; color: white; text-align: right; max-width: 300px;">
+        <p
+          style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 24px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+          "Segurança é a prioridade"</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

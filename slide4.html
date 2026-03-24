@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=1280, height=720, initial-scale=1.0" name="viewport" />
+  <title>Bloco 1 - ASC e Kitesurf no Campeche</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Open+Sans:wght@400;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background-color: #f0f8ff;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      display: flex;
+      position: relative;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    /* Left Content Area */
+    .content-side {
+      width: 65%;
+      padding: 60px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    /* Right Image Area */
+    .image-side {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 40%;
+      height: 100%;
+      background-color: #0077b6;
+      clip-path: polygon(20% 0, 100% 0, 100% 100%, 0% 100%);
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .image-bg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 1; /* Aumentado para ver a foto com clareza */
+      background-image: url('assets/torero.jpeg');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 119, 182, 0.4);
+      /* Blue tint */
+    }
+
+    /* Typography */
+    .header-section {
+      margin-bottom: 40px;
+      border-left: 8px solid #fb8500;
+      padding-left: 30px;
+    }
+
+    .block-label {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: #fb8500;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 5px;
+      display: block;
+    }
+
+    .main-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      color: #003049;
+      line-height: 1.1;
+      margin: 0;
+    }
+
+    .presenter-info {
+      font-size: 18px;
+      color: #64748b;
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    /* List Styles */
+    .content-list {
+      display: flex;
+      flex-direction: column;
+      gap: 25px;
+    }
+
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .icon-box {
+      min-width: 50px;
+      height: 50px;
+      background-color: #e0f2fe;
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #0284c7;
+      font-size: 20px;
+      margin-right: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+      flex-shrink: 0;
+    }
+
+    .list-text-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .item-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .item-desc {
+      font-size: 16px;
+      color: #475569;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    /* Decoration */
+    .watermark {
+      position: absolute;
+      bottom: -50px;
+      left: -50px;
+      font-size: 300px;
+      color: rgba(0, 119, 182, 0.03);
+      z-index: 0;
+      transform: rotate(-15deg);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <!-- Watermark Background -->
+    <i class="fas fa-water watermark"></i>
+    <!-- Main Content -->
+    <div class="content-side">
+      <div class="header-section">
+        <span class="block-label">Bloco 1 • 15–20 min</span>
+        <h1 class="main-title">ASC e Kitesurf no Campeche</h1>
+        <p class="presenter-info"><i class="fas fa-user-circle mr-2"></i>Apresentação: Torero (Diretor ASC)</p>
+      </div>
+      <div class="content-list">
+        <!-- Item 1 -->
+        <div class="list-item">
+          <div class="icon-box">
+            <i class="fas fa-users"></i>
+          </div>
+          <div class="list-text-content">
+            <h3 class="item-title">Boas-vindas e Contexto</h3>
+            <p class="item-desc">Apresentação da Associação de Surf do Campeche (ASC) e panorama atual do esporte na
+              Ilha de Florianópolis.</p>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="list-item">
+          <div class="icon-box">
+            <i class="fas fa-bullseye"></i>
+          </div>
+          <div class="list-text-content">
+            <h3 class="item-title">Objetivos da Reunião</h3>
+            <p class="item-desc">Alinhar princípios de convivência e definir regras claras para segurança de todos.</p>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="list-item">
+          <div class="icon-box">
+            <i class="fas fa-exclamation-triangle"></i>
+          </div>
+          <div class="list-text-content">
+            <h3 class="item-title">Desafios Locais</h3>
+            <p class="item-desc">Gestão de áreas de banho, condições de vento (rajadas), alta temporada e fluxo de
+              escolas.</p>
+          </div>
+        </div>
+        <!-- Item 4 -->
+        <div class="list-item">
+          <div class="icon-box">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <div class="list-text-content">
+            <h3 class="item-title">Próximos Passos</h3>
+            <p class="item-desc">Engajamento da comunidade para fortalecer o esporte e garantir a harmonia na praia.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Right Side Image -->
+    <div class="image-side">
+      <div class="image-bg"></div>
+      <div class="image-overlay"></div>
+      <!-- Optional overlay text or quote on image -->
+      <div style="position: absolute; bottom: 40px; right: 40px; color: white; text-align: right; max-width: 300px;">
+        <p
+          style="font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 24px; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">
+          "Cuidar do nosso terreno"</p>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

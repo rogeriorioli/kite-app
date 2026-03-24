@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=1280, height=720, initial-scale=1.0" name="viewport" />
+  <title>Agenda da Reunião</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&amp;family=Open+Sans:wght@400;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background-color: #f0f4f8;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+      /* Simulating gradient with flat colors if needed, but keeping it simple as requested: avoiding complex gradients in CSS rules usually means avoiding things that break export. Simple linear-gradient is usually fine in modern browsers but per instruction "Do not use any CSS gradients", I will revert to solid color or image */
+      background-color: #f0f8ff;
+      /* Fallback/Solid */
+      overflow: hidden;
+    }
+
+    /* Decorative Background Elements */
+    .wave-bg {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 250px;
+      background-color: #e0f2fe;
+      clip-path: polygon(0 40%, 100% 10%, 100% 100%, 0% 100%);
+      z-index: 1;
+    }
+
+    .wave-bg-2 {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 180px;
+      background-color: #b9e6fe;
+      clip-path: polygon(0 60%, 100% 30%, 100% 100%, 0% 100%);
+      z-index: 1;
+      opacity: 0.6;
+    }
+
+    .header {
+      padding: 50px 80px 20px 80px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 48px;
+      color: #003049;
+      margin: 0;
+      text-transform: uppercase;
+      border-left: 8px solid #fb8500;
+      padding-left: 20px;
+    }
+
+    .total-time {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 24px;
+      color: #0077b6;
+      background-color: #e0f7fa;
+      padding: 10px 25px;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Timeline Container */
+    .timeline-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 60px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .timeline-line {
+      position: absolute;
+      top: 35%;
+      /* Align with the dots */
+      left: 140px;
+      right: 140px;
+      height: 4px;
+      background-color: #cbd5e1;
+      z-index: 0;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 30px;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    .timeline-item {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Step Marker */
+    .step-marker {
+      width: 60px;
+      height: 60px;
+      background-color: #0077b6;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 25px;
+      border: 4px solid #ffffff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 2;
+      transition: transform 0.3s ease;
+    }
+
+    .timeline-item:nth-child(1) .step-marker {
+      background-color: #0077b6;
+    }
+
+    .timeline-item:nth-child(2) .step-marker {
+      background-color: #023e8a;
+    }
+
+    .timeline-item:nth-child(3) .step-marker {
+      background-color: #0096c7;
+    }
+
+    .timeline-item:nth-child(4) .step-marker {
+      background-color: #fb8500;
+    }
+
+    .timeline-card {
+      background-color: white;
+      border-radius: 12px;
+      padding: 25px 20px;
+      width: 100%;
+      height: 280px;
+      /* Fixed height for consistency */
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      border-top: 4px solid #0077b6;
+    }
+
+    .timeline-item:nth-child(1) .timeline-card {
+      border-top-color: #0077b6;
+    }
+
+    .timeline-item:nth-child(2) .timeline-card {
+      border-top-color: #023e8a;
+    }
+
+    .timeline-item:nth-child(3) .timeline-card {
+      border-top-color: #0096c7;
+    }
+
+    .timeline-item:nth-child(4) .timeline-card {
+      border-top-color: #fb8500;
+    }
+
+    .card-time {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 10px;
+      background-color: #f1f5f9;
+      padding: 4px 10px;
+      border-radius: 4px;
+      align-self: center;
+    }
+
+    .card-speaker {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 5px;
+    }
+
+    .card-role {
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 600;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: #334155;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+
+    /* Number Badge */
+    .step-number {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background-color: #fb8500;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      font-size: 14px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      border: 2px solid white;
+    }
+
+    .footer-note {
+      position: absolute;
+      bottom: 30px;
+      right: 80px;
+      background-color: #ffb703;
+      color: #003049;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-family: 'Montserrat', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      z-index: 20;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="wave-bg"></div>
+    <div class="wave-bg-2"></div>
+    <div class="header">
+      <h1 class="title">Agenda da Reunião</h1>
+      <div class="total-time">
+        <i class="far fa-clock"></i>
+        <span>Duração Total: 1h 30min</span>
+      </div>
+    </div>
+    <div class="timeline-container">
+      <div class="timeline-line"></div>
+      <div class="timeline-grid">
+        <!-- Block 1 -->
+        <div class="timeline-item">
+          <div class="step-marker">
+            <i class="fas fa-water"></i>
+            <div class="step-number">1</div>
+          </div>
+          <div class="timeline-card">
+            <span class="card-time">15 - 20 min</span>
+            <p class="card-speaker">Torero</p>
+            <p class="card-role">ASC - Diretoria</p>
+            <p class="card-desc">
+              Apresentação da pauta, da ASC e panorama do esporte na Ilha e no Campeche.
+            </p>
+          </div>
+        </div>
+        <!-- Block 2 -->
+        <div class="timeline-item">
+          <div class="step-marker">
+            <i class="fas fa-globe-americas"></i>
+            <div class="step-number">2</div>
+          </div>
+          <div class="timeline-card">
+            <span class="card-time">15 - 20 min</span>
+            <p class="card-speaker">George Wagner</p>
+            <p class="card-role">ABK - Presidente</p>
+            <p class="card-desc">
+              Cenário nacional/mundial e experiência de regulamentação no Ceará.
+            </p>
+          </div>
+        </div>
+        <!-- Block 3 -->
+        <div class="timeline-item">
+          <div class="step-marker">
+            <i class="fas fa-life-ring"></i>
+            <div class="step-number">3</div>
+          </div>
+          <div class="timeline-card">
+            <span class="card-time">20 - 25 min</span>
+            <p class="card-speaker">Alemão</p>
+            <p class="card-role">Especialista</p>
+            <p class="card-desc">
+              Procedimentos essenciais e protocolos de segurança no esporte.
+            </p>
+          </div>
+        </div>
+        <!-- Block 4 -->
+        <div class="timeline-item">
+          <div class="step-marker">
+            <i class="fas fa-clipboard-check"></i>
+            <div class="step-number">4</div>
+          </div>
+          <div class="timeline-card">
+            <span class="card-time">30 min</span>
+            <p class="card-speaker">Regras e Placa</p>
+            <p class="card-role">Discussão Coletiva</p>
+            <p class="card-desc">
+              Apresentação da sugestão da placa e validação das regras com todos.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-note">
+      <i class="fas fa-glass-cheers"></i>
+      <span>Após: Confraternização (Açaí e Chopp)</span>
+    </div>
+  </div>
+</body>
+
+</html>

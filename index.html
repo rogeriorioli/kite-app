@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Regras e Segurança no Kitesurf - Campeche</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100%; height: 100%;
+      background: #0a0e1a;
+      overflow: hidden;
+      font-family: 'Montserrat', sans-serif;
+      user-select: none;
+    }
+
+    /* ── Fullscreen stage ── */
+    #stage {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0e1a;
+    }
+
+    /* ── Slide wrapper ── */
+    #slide-wrapper {
+      position: relative;
+      width: 1280px;
+      height: 720px;
+      transform-origin: center center;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    iframe#slide-frame {
+      width: 1280px;
+      height: 720px;
+      border: none;
+      display: block;
+    }
+
+    /* ── Fade overlay ── */
+    #transition-overlay {
+      position: absolute;
+      inset: 0;
+      background: #0a0e1a;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 100;
+    }
+    #transition-overlay.active { opacity: 1; }
+
+    /* ── HUD (controles flutuantes) ── */
+    #hud {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 300;
+      transition: opacity 0.4s ease;
+    }
+    /* Esconde HUD quando mouse parado */
+    #hud.hidden { opacity: 0; }
+
+    /* Setas laterais */
+    .nav-btn {
+      pointer-events: all;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 24px;
+      backdrop-filter: blur(10px);
+      transition: background 0.2s, transform 0.2s;
+      outline: none;
+    }
+    .nav-btn:hover  { background: rgba(255,255,255,0.25); transform: translateY(-50%) scale(1.1); }
+    .nav-btn:active { background: rgba(255,255,255,0.35); }
+    .nav-btn:disabled { opacity: 0.15; cursor: default; }
+    #btn-prev { left: 20px; }
+    #btn-next { right: 20px; }
+
+    /* Barra inferior */
+    #bottom-hud {
+      pointer-events: all;
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      padding: 18px 32px;
+      background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 100%);
+    }
+
+    /* Dots */
+    #dots { display: flex; gap: 8px; }
+    .dot {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .dot.active { background: #00b4d8; transform: scale(1.4); }
+    .dot:hover:not(.active) { background: rgba(255,255,255,0.6); }
+
+    /* Counter */
+    #counter {
+      color: rgba(255,255,255,0.5);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      min-width: 52px;
+      text-align: center;
+    }
+
+    /* Botão fullscreen */
+    #btn-fullscreen {
+      pointer-events: all;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.7);
+      border-radius: 8px;
+      padding: 5px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s, color 0.2s;
+      position: absolute;
+      bottom: 18px;
+      right: 28px;
+    }
+    #btn-fullscreen:hover { background: rgba(255,255,255,0.22); color: #fff; }
+
+    /* Hint topo */
+    #hint-top {
+      pointer-events: none;
+      position: absolute;
+      top: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.3);
+      font-size: 11px;
+      letter-spacing: 0.07em;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Stage principal -->
+  <div id="stage">
+    <div id="slide-wrapper">
+      <iframe id="slide-frame" src="slide1.html" title="Slide"></iframe>
+      <div id="transition-overlay"></div>
+    </div>
+  </div>
+
+  <!-- HUD (controles flutuantes) -->
+  <div id="hud">
+    <button class="nav-btn" id="btn-prev" aria-label="Slide anterior">&#8592;</button>
+    <button class="nav-btn" id="btn-next" aria-label="Próximo slide">&#8594;</button>
+
+    <span id="hint-top">← → navegar &nbsp;·&nbsp; F fullscreen &nbsp;·&nbsp; Esc sair</span>
+
+    <div id="bottom-hud">
+      <div id="dots"></div>
+      <div id="counter">1 / 9</div>
+    </div>
+
+    <button id="btn-fullscreen">&#x26F6; Tela cheia</button>
+  </div>
+
+<script>
+  const slides = [
+    'slide1.html','slide2.html','slide3.html','slide4.html',
+    'slide5.html','slide6.html','slide7.html','slide8.html',
+    'slide9.html',
+  ];
+
+  const frame    = document.getElementById('slide-frame');
+  const overlay  = document.getElementById('transition-overlay');
+  const btnPrev  = document.getElementById('btn-prev');
+  const btnNext  = document.getElementById('btn-next');
+  const counter  = document.getElementById('counter');
+  const dotsEl   = document.getElementById('dots');
+  const wrapper  = document.getElementById('slide-wrapper');
+  const hud      = document.getElementById('hud');
+  const btnFs    = document.getElementById('btn-fullscreen');
+
+  let current = 0;
+  let busy    = false;
+
+  /* ── Dots ── */
+  const dots = slides.map((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+    return d;
+  });
+
+  /* ── Fit slide to viewport ── */
+  function fitSlide() {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const scale = Math.min(vw / 1280, vh / 720);
+    wrapper.style.transform = `scale(${scale})`;
+  }
+  window.addEventListener('resize', fitSlide);
+  fitSlide();
+
+  /* ── Update UI ── */
+  function updateUI() {
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    counter.textContent = `${current + 1} / ${slides.length}`;
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current === slides.length - 1;
+  }
+
+  /* ── Navigate ── */
+  function goTo(index) {
+    if (busy || index < 0 || index >= slides.length || index === current) return;
+    busy = true;
+    overlay.classList.add('active');
+    setTimeout(() => {
+      current = index;
+      frame.src = slides[current];
+      frame.onload = () => {
+        updateUI();
+        overlay.classList.remove('active');
+        busy = false;
+      };
+    }, 260);
+  }
+
+  function prev() { goTo(current - 1); }
+  function next() { goTo(current + 1); }
+
+  btnPrev.addEventListener('click', prev);
+  btnNext.addEventListener('click', next);
+
+  /* ── Keyboard ── */
+  document.addEventListener('keydown', (e) => {
+    if (['ArrowRight','ArrowDown',' '].includes(e.key)) { e.preventDefault(); next(); }
+    if (['ArrowLeft','ArrowUp'].includes(e.key))        { e.preventDefault(); prev(); }
+    if (e.key === 'Home') goTo(0);
+    if (e.key === 'End')  goTo(slides.length - 1);
+    if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+  });
+
+  /* ── Fullscreen ── */
+  function toggleFullscreen() {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen().catch(() => {});
+    } else {
+      document.exitFullscreen();
+    }
+  }
+  btnFs.addEventListener('click', toggleFullscreen);
+  document.addEventListener('fullscreenchange', () => {
+    const inFs = !!document.fullscreenElement;
+    btnFs.innerHTML = inFs ? '✕ Sair' : '⛶ Tela cheia';
+    fitSlide();
+  });
+
+  /* ── Auto-hide HUD after 2.5s of no mouse movement ── */
+  let hideTimer;
+  function showHUD() {
+    hud.classList.remove('hidden');
+    document.body.style.cursor = '';
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => {
+      hud.classList.add('hidden');
+      document.body.style.cursor = 'none';
+    }, 2500);
+  }
+  document.addEventListener('mousemove', showHUD);
+  document.addEventListener('mousedown', showHUD);
+
+  /* ── Touch / swipe ── */
+  let touchStartX = 0;
+  document.addEventListener('touchstart', (e) => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) dx < 0 ? next() : prev();
+  });
+
+  /* ── Inicia HUD ── */
+
+  // Init
+  updateUI();
+  showHUD();
+</script>
+</body>
+</html>

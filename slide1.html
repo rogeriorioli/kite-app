@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=1280, height=720, initial-scale=1.0" name="viewport" />
+  <title>Regras e Segurança no Kitesurf - Campeche</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&amp;family=Open+Sans:wght@400;600&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      width: 1280px;
+      height: 720px;
+      overflow: hidden;
+      background-color: #f0f4f8;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    .slide-container {
+      width: 1280px;
+      height: 720px;
+      display: flex;
+      position: relative;
+      background-color: #ffffff;
+      overflow: hidden;
+    }
+
+    .bg-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      background-image: url("assets/BG_KITE.jpg");
+      /* Beach top view */
+      background-size: cover;
+      background-position: center;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      background-color: rgba(0, 48, 73, 0.75);
+      /* Deep Ocean Blue overlay */
+    }
+
+
+    .content-wrapper {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+      width: 100%;
+      padding: 0 80px;
+      color: #ffffff;
+    }
+
+    .title-container {
+      margin-bottom: 40px;
+      max-width: 800px;
+    }
+
+    .main-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 72px;
+      line-height: 1.1;
+      margin: 0;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      color: #ffffff;
+    }
+
+    .subtitle {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      font-size: 36px;
+      margin-top: 10px;
+      color: #caf0f8;
+      /* Light blue */
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, auto);
+      gap: 40px;
+      margin-top: 60px;
+      padding-top: 40px;
+      border-top: 2px solid rgba(255, 255, 255, 0.3);
+      width: fit-content;
+    }
+
+    .detail-item {
+      display: flex;
+      align-items: center;
+    }
+
+    .detail-icon {
+      font-size: 24px;
+      margin-right: 15px;
+      color: #ffb703;
+      /* Sun Yellow */
+      width: 30px;
+      text-align: center;
+    }
+
+    .detail-text {
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .detail-label {
+      font-size: 14px;
+      opacity: 0.8;
+      display: block;
+      margin-bottom: 2px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .logos-container {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      z-index: 20;
+    }
+
+    .logo-img {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 10px;
+      border-radius: 8px;
+      height: 90px;
+      width: auto;
+      object-fit: contain;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .accent-bar {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 15px;
+      height: 200px;
+      background-color: #fb8500;
+      /* Orange */
+      z-index: 11;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="slide-container">
+    <div class="bg-image"></div>
+    <div class="overlay"></div>
+    <div class="diagonal-shape"></div>
+    <div class="accent-bar"></div>
+    <div class="content-wrapper">
+      <div class="title-container">
+        <h1 class="main-title">Regras e Segurança no Kitesurf</h1>
+        <h2 class="subtitle">Campeche</h2>
+      </div>
+      <div class="details-grid">
+        <div class="detail-item">
+          <div class="detail-icon"><i class="far fa-calendar-alt"></i></div>
+          <div>
+            <span class="detail-label">Data</span>
+            <div class="detail-text">28/03/2026</div>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon"><i class="far fa-clock"></i></div>
+          <div>
+            <span class="detail-label">Horário</span>
+            <div class="detail-text">10:00 Hrs</div>
+          </div>
+        </div>
+        <div class="detail-item">
+          <div class="detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div>
+            <span class="detail-label">Local</span>
+            <div class="detail-text">Casa Di Praia</div>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top: 40px; font-size: 18px; max-width: 600px; line-height: 1.6; opacity: 0.9;">
+        <p>Objetivo: Alinhar regras locais, reforçar procedimentos de segurança e fortalecer a comunidade do esporte.
+        </p>
+      </div>
+    </div>
+    <div class="logos-container">
+      <img alt="ASC Logo" class="logo-img" src="assets/WhatsApp Image 2026-03-22 at 09.02.04 (1).jpeg" />
+      <img alt="ABK Logo" class="logo-img" src="assets/WhatsApp Image 2026-03-22 at 09.02.04.jpeg" />
+      <img alt="CBVela Logo" class="logo-img" src="assets/WhatsApp Image 2026-03-22 at 09.02.05.jpeg" />
+    </div>
+  </div>
+</body>
+
+</html>
